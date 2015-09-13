@@ -23,7 +23,7 @@ MongoClient.connect(setting.url, function(err, db){
     app.set('view engine', 'ejs');
 
     app.use(bodyParser.urlencoded({extended: false}));
-    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, 'public'), {maxAge: 2592000000}));
     app.use(cookieParser());
     app.use(expressSession({
         secret: setting.cookieSecret,
