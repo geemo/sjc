@@ -1,0 +1,95 @@
+<%- include header %>
+<style>
+    th{
+        width: 80px;
+    }
+</style>
+<div class="container-fluid" style="padding:0">
+    <div class="col-md-offset-2 col-md-8 col-xs-12" style="padding:0">
+        <div class="panel panel-info">
+            <% if(user && user.username === queryUsername){ %>
+            <div class="panel-heading">我的信息</div>
+            <% }else{ %>
+            <div class="panel-heading">Ta的信息</div>
+            <% } %>
+            <div class="panel-body">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class=<%= (!nav||nav==='info')?'active':''%>><a href="/user?username=<%= queryUsername %>&nav=info">资料</a></li>
+                    <li class=<%= nav==='topics'?'active':'' %>><a href="/user?username=<%= queryUsername %>&nav=topics">发表话题</a></li>
+                    <li class=<%= nav==='comments'?'active':'' %>><a href="/user?username=<%= queryUsername %>&nav=comments">参与回复</a></li>
+                    <% if(user && user.username === queryUsername){ %>
+                    <li class=<%= nav==='modify'?'active':'' %>><a href="/user?username=<%= queryUsername %>&nav=modify">资料修改</a></li>
+                    <% } %>
+                </ul>
+                <div class="well">
+                    <% if(!nav || nav==='info'){ %>
+                    <table class="table" style="background-color:#fff">
+                        <tr>
+                            <th>用户名</th>
+                            <td><%= queryUsername %></td>
+                        </tr>
+                        <tr>
+                            <th>昵称</th>
+                            <td><%= queryUser.nickname %></td>
+                        </tr>
+                        <tr>
+                            <th>经验</th>
+                            <td><%= queryUser.experNum %></td>
+                        </tr>
+                        <tr>
+                            <th>金币</th>
+                            <td><%= queryUser.goldNum %></td>
+                        </tr>
+                        <tr>
+                            <th>签名</th>
+                            <td><%= queryUser.sign %></td>
+                        </tr>
+                        <tr>
+                            <th>最后登录</th>
+                            <td><%= queryUser.login %></td>
+                        </tr>
+                    </table>
+                    <% }else if(nav==='topics'){ %>
+                    <div class="list-group" id="topic-list" username=<%= queryUsername %>>
+
+                        <% for(var i = 0; i < 5 && i < topics.length; ++i){%>
+                        <a href="/topic_show?postid=<%= topics[i]._id %>" class="list-group-item"><%= topics[i].title %></a>
+                        <% } %>
+                    </div>
+                    <a id="show-more-topic" class="list-group-item btn btn-default text-center">显示更多+</a>
+                    <% }else if(nav==='comments'){ %>
+                    <div class="list-group" id="comment-list" username=<%= queryUsername %>>
+                        <% for(var i = 0; i < 5 && i < comments.length; ++i){%>
+                        <a href="/topic_show?postid=<%= comments[i].topicid %>" class="list-group-item"><%= comments[i].content %></a>
+                        <% } %>
+                    </div>
+                    <a id="show-more-comment" class="list-group-item btn btn-default text-center">显示更多+</a>
+                    <% }else if(nav==='modify'){ %>
+
+                    <div class="form-group">
+                        昵称:
+                        <input id="nickname-modify" type="text" class="form-control" maxlength="6" placeholder="昵称长度为1-6位" value=<%= user.nickname %>>
+                    </div>
+                    <div class="form-group">
+                        签名:
+                        <input id="sign-modify" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        密码(密码不修改留空即可):
+                        <input id="pwd-modify" type="password" class="form-control" placeholder="密码长度为6-12位" maxlength="12">
+                    </div>
+                    <input id="btn-modify" type="button" class="btn btn-primary" value="修改">
+                    <input type="reset" class="btn btn-default" value="重置">
+                    <span id="tip-modify" style="color:red"></span>
+
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="/javascript/fc_mod_col.js"></script>
+<script src="/javascript/user.js"></script>
+</body>
+</html>

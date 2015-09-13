@@ -1,0 +1,49 @@
+<%- include header %>
+
+<div class="container-fluid" style="padding:0;margin-bottom:52px">
+    <div class="col-md-offset-2 col-md-8 col-xs-12" style="padding:0">
+        <div class="panel panel-default">
+            <div class="panel-heading">话题评论舍</div>
+            <div class="panel-body">
+                <div class="well">
+                    <p class="text-warning"><a href="http://shijiecao.tiger.mopaasapp.com/user?username=<%= topic.username %>"><%= topic.nickname %></a> 发表于<%= topic.date %><span class="pull-right">(<%= topic.readNum %>阅)</span></p>
+                    <p class="text-info">标题: <%= topic.title %></p>
+                    <p class="text-default">内容: <%= topic.content %></p>
+                </div>
+                <% for(var i = comments.length - 1; i >= 0; --i){ %>
+                <div class="list-group-item">
+                    #<%= +i+1 %> <a href="http://shijiecao.tiger.mopaasapp.com/user?username=<%= comments[i].username %>"><%= comments[i].nickname %></a>
+                    <span class="pull-right"><%= comments[i].date %></span>
+                    <p><%= comments[i].content %></p>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="well navbar-fixed-bottom" style="margin-bottom:0px;padding: 8px 0;">
+
+    <% if(user){ %>
+    <form class="input-group" method="post">
+        <input type="text" name="content" class="form-control" required>
+        <div class="input-group-btn">
+            <input type="submit" class="btn btn-default" value="提交评论">
+        </div>
+        <input type="hidden" name="postid" value=<%= topic._id %>>
+        <input type="hidden" name="nickname" value=<%= user.nickname %>>
+        <input type="hidden" name="username" value=<%= user.username %>>
+    </form>
+    <% }else{ %>
+    <div class="input-group">
+        <input type="text" class="form-control">
+        <div class="input-group-btn">
+            <input type="button" class="btn btn-default" data-toggle="modal" data-target="#login" value="提交评论">
+        </div>
+    </form>
+    <% } %>
+</div>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="/javascript/fc_mod_col.js"></script>
+</body>
+</html>

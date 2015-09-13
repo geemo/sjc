@@ -1,0 +1,49 @@
+<%- include header %>
+
+
+
+<div class="container-fluid" style="padding: 0">
+    <div class="col-md-offset-2 col-md-8 col-xs-12" style="padding: 0">
+
+        <div class="jumbotron" style="padding-left: 20px">
+            <h4>节操丢了还能够拾回来</h4>
+            <br>
+            <span>专业帮助人们找回曾经最纯洁的节操</span>
+        </div>
+
+        <div class="panel panel-success" style="border:0px;">
+            <div class="panel-heading">
+                <a class="text-info" href="/topic">[话题舍]</a>热点内容
+                <% if(user){ %>
+                <a class="text-info pull-right" href="/topic/add">[我要发布+]</a>
+                <% }else{ %>
+                <a class="text-info pull-right" href="#login" data-toggle="modal">[我要发布+]</a>
+                <% } %>
+            </div>
+            <ul class="list-group">
+                <% captions.forEach(function(caption){ %>
+                <li class="list-group-item"><a href=<%= 'http://shijiecao.tiger.mopaasapp.com/topic_show?postid='+caption._id %>><%= caption.title %></a></li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-offset-2 col-md-8 col-xs-12" style="padding: 0">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                友情链接
+            </div>
+            <div class="panel-body">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <a class="btn btn-warning">空位</a>
+                    <a class="btn btn-success">空位</a>
+                    <a class="btn btn-info">空位</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="/javascript/fc_mod_col.js"></script>
+</body>
+</html>

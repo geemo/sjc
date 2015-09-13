@@ -1,0 +1,40 @@
+<%- include header %>
+<div class="container-fluid" style="padding:0">
+    <div class="col-md-offset-2 col-md-8 col-xs-12" style="padding: 0">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                话题舍
+                <% if(!user){ %>
+                <a class="pull-right" style="color: #fff" data-toggle="modal" data-target="#login">发布话题+</a>
+                <% } %>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class=<%= (url==='/'||url==='/?order=0')?'active':'' %>><a href="/topic?order=0">最新</a></li>
+                    <li class=<%= url==='/?order=1'?'active':'' %>><a href="/topic?order=1">最热</a></li>
+                    <li  class=<%= url==='/?order=2'?'active':'' %>><a href="/topic?order=2">浮动</a></li>
+                    <% if(user){ %>
+                    <li class=<%= url==='/add'?'active':'' %>><a href="/topic/add">发布话题+</a></li>
+                    <% } %>
+                </ul>
+                <div class="list-group" id="topic-list">
+                    <% topics.forEach(function(topic){ %>
+                    <a href="/topic_show?postid=<%= topic._id %>" class="list-group-item">
+                        <h4 class="list-group-item-heading"><%= topic.title %></h4>
+                        <p class="list-group-item-text">
+                            <span><%= topic.nickname %></span>
+                            <span style="float:right"><%= topic.answerNum %>回/<%= topic.readNum %>阅/<%= topic.date %></span>
+                        </p>
+                    </a>
+                    <% }) %>
+                </div>
+                <a id="show-more" class="list-group-item btn btn-default text-center" order=<%= order %>>显示更多+</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="/javascript/fc_mod_col.js"></script>
+<script src="/javascript/topic.js"></script>
+</body>
+</html>

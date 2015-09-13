@@ -1,0 +1,35 @@
+<%- include header %>
+
+<div class="container-fluid" style="padding: 0">
+    <div class="col-md-offset-2 col-md-8 col-xs-12" style="padding: 0">
+        <div class="panel panel-danger">
+            <div class="panel-heading">经验区<span class="pull-right"><%= count %>条经验</span></div>
+            <div class="panel-body">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class=<%= (url==='/' || url==='/?order=0')?'active':'' %>><a href="/experience?order=0">最新</a></li>
+                    <li class=<%= url==='/?order=1'?'active':'' %>><a href="/experience?order=1">最坑</a></li>
+                    <li class=<%= url==='/?order=2'?'active':'' %>><a href="/experience?order=2">最赞</a></li>
+                </ul>
+                <div class="list-group" id="jock-list">
+                    <% experiences.forEach(function(experience){ %>
+                    <div class="list-group-item">
+                        <p><%= experience.question %></p>
+                        <p>神回复: <%= experience.answer %></p>
+                        <div id=<%= experience._id %>>
+                            <span class="zan btn btn-default btn-xs" onclick="zanFunc(this)">赞(<span><%= experience.zan %></span>)</span>
+                            <span class="ken btn btn-default btn-xs" onclick="kenFunc(this)">坑(<span><%= experience.ken %></span>)</span>
+                            <span class="pull-right"><%= experience.date %></span>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
+                <a id="show-more" class="list-group-item btn btn-default text-center" order=<%= order %>>显示更多+</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="/javascript/fc_mod_col.js"></script>
+<script src="/javascript/experience.js"></script>
+</body>
+</html>

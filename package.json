@@ -1,0 +1,22 @@
+{
+  "name": "shijiecao",
+  "version": "0.0.1",
+  "private": "true",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "connect-mongo": "^0.8.2",
+    "cookie-parser": "^1.3.5",
+    "ejs": "^2.3.3",
+    "express": "^4.13.1",
+    "express-session": "^1.11.3",
+    "mongodb": "^2.0.39",
+    "socket.io": "^1.3.5"
+  },
+  "engines": {
+    "node": "0.12.2",
+    "npm": "2.7.4"
+  }
+}

@@ -1,0 +1,61 @@
+<%- include header %>
+<style>
+    .left{float: left;}
+    .right{float: right;}
+    .info-tip{width: 100px;margin-left: auto;margin-right: auto;margin-bottom: 10px;background: #dddddd;border-radius: 10px;text-align: center;clear: both;}
+    .header{margin: 0 20px;clear: both;}
+    .msg-box{margin: 10px 20px;padding: 10px 20px;max-width: 400px;background:#00b3ee;position:relative;word-break: break-all;color: #fff;border-radius: 5px;clear: both;}
+    .arrow-left-top{width:0;height:0;border-bottom: 10px solid #00b3ee;border-left: 10px solid transparent;border-right: 10px solid transparent;position: absolute;left: 3px;top: -7px;}
+    .arrow-right-top{width: 0;height: 0;border-bottom: 10px solid #00b3ee;border-left: 10px solid transparent;border-right: 10px solid transparent;position: absolute;right: 3px;top: -7px;}
+</style>
+<div class="well well-sm text-center text-danger">欢迎进入拾节操聊天室,据说文明发言不丢节操。。。</div>
+<div class="container-fluid" id="chat-box" style="margin-bottom: 60px">
+</div>
+
+<div class="well navbar-fixed-bottom" style="margin-bottom:0px;padding: 8px 0;">
+    <div class="input-group">
+        <input id="message-input" type="text" class="form-control">
+        <div class="input-group-btn dropup">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#history-modal" data-toggle="modal">聊天记录</a></li>
+            </ul>
+            <% if(user){ %>
+            <button id="send-btn" class="btn btn-default">发送</button>
+            <% }else{ %>
+            <button class="btn btn-default" data-target="#login" data-toggle="modal">发送</button>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<div id="history-modal" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                聊天记录
+                <span class="close" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="modal-body" style="height: 500px;word-break: break-all;overflow: auto">
+
+            </div>
+            <div id="page-footer" class="modal-footer" style="padding:0 15px">
+                <nav>
+                    <ul class="pager">
+                        <li class="previous" id="previous"><a>&larr;上一页</a></li>
+                        <li class="next" id="next"><a>&rarr;下一页</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/socket.io/1.3.5/socket.io.min.js"></script>
+<script src="/javascript/fc_mod_col.js"></script>
+<script src="/javascript/chat_client.js"></script>
+<script src="/javascript/dropdown.js"></script>
+</body>
+</html>

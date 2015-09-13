@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin-top:60px;background-color: #f9f9f9">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-list">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">拾节操</a>
+        </div>
+        <div class="collapse navbar-collapse" id="nav-list">
+            <ul class="nav navbar-nav">
+                <li><a href="/">主页</a></li>
+                <li><a href="/topic">话题舍</a></li>
+                <li><a href="/experience">经验区</a></li>
+                <li><a href="/chat">激情聊天室</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <% if(user){ %>
+                <li><a id="nickname" class="btn" href="http://shijiecao.tiger.mopaasapp.com/user?username=<%= user.username %>" username=<%= user.username %>><%= user.nickname %></a></li>
+                <li><a id="exit" class="btn" style="color:cadetblue" href="/logout">退出</a></li>
+                <% } else {%>
+                <li><a class="btn" data-target="#register" data-toggle="modal">注册</a></li>
+                <li><a class="btn" data-target="#login" data-toggle="modal">登录</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="modal fade" id="register" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" data-dismiss="modal">&times;</span>
+                注册
+            </div>
+            <div class="modal-body">
+                <form id="reg-form" method="post" action="/reg">
+                    <div class="form-group">
+                        用户名:<span id="username-info-reg"></span>
+                        <input id="username-reg" name="username" type="text" class="form-control" required="required" maxlength="12" placeholder="用户名长度为6-12位">
+                    </div>
+                    <div class="form-group">
+                        昵称:
+                        <input id="nickname-reg" name="nickname" type="text" class="form-control" required="required" maxlength="6" placeholder="昵称长度为1-6位">
+                    </div>
+                    <div class="form-group">
+                        密码:
+                        <input id="pwd-reg" name="pwd" type="password" class="form-control" placeholder="密码长度为6-12位" maxlength="12" required="required">
+                    </div>
+                    <div class="form-group">
+                        确认密码:
+                        <input id="pwd-rep-reg" type="password" class="form-control" placeholder="密码长度为6-12位" maxlength="12" required="required">
+                    </div>
+                    <input id='btn-reg' type="button" class="btn btn-primary" value="注册">
+                    <input type="reset" class="btn btn-default" value="重置">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="login" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" data-dismiss="modal">&times;</span>
+                登录
+            </div>
+            <div class="modal-body">
+                <form method="post" id="form-login" action="/login">
+                    <input id="username-login" name="username" type="text" class="form-control" placeholder="username" style="margin-bottom:20px">
+                    <input id="pwd-login" name="pwd" type="password" class="form-control" placeholder="password" style="margin-bottom: 20px">
+                    <input id="btn-login" type="button" class="btn btn-primary" value="登录">
+                    <input type="reset" class="btn btn-default" value="重置">
+                    <span id="tip" class="text-danger"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

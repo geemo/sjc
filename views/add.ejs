@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin-top:60px;background-color:#f9f9f9">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-list">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">拾节操</a>
+        </div>
+        <div class="collapse navbar-collapse" id="nav-list">
+            <ul class="nav navbar-nav">
+                <li><a href="/">主页</a></li>
+                <li><a href="/topic">话题舍</a></li>
+                <li><a href="/experience">经验区</a></li>
+                <li><a href="/chat">激情聊天室</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <% if(user){ %>
+                <li><a id="nickname" class="btn" href="http://shijiecao.tiger.mopaasapp.com/user?username=<%= user.username %>" username=<%= user.username %>><%= user.nickname %></a></li>
+                <li><a id="exit" class="btn" style="color:cadetblue" href="/logout">退出</a></li>
+                <% } else {%>
+                <li><a class="btn" data-target="#register" data-toggle="modal">注册</a></li>
+                <li><a class="btn" data-target="#login" data-toggle="modal">登录</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="modal fade" id="register">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" data-dismiss="modal">&times;</span>
+                注册
+            </div>
+            <div class="modal-body">
+                <form id="reg-form" method="post" action="/reg">
+                    <div class="form-group">
+                        用户名:<span id="username-info-reg"></span>
+                        <input id="username-reg" name="username" type="text" class="form-control" required="required" maxlength="12" placeholder="用户名长度为6-12位">
+                    </div>
+                    <div class="form-group">
+                        昵称:
+                        <input id="nickname-reg" name="nickname" type="text" class="form-control" required="required" maxlength="6" placeholder="昵称长度为1-6位">
+                    </div>
+                    <div class="form-group">
+                        密码:
+                        <input id="pwd-reg" name="pwd" type="password" class="form-control" placeholder="密码长度为6-12位" maxlength="12" required="required">
+                    </div>
+                    <div class="form-group">
+                        确认密码:
+                        <input id="pwd-rep-reg" type="password" class="form-control" placeholder="密码长度为6-12位" maxlength="12" required="required">
+                    </div>
+                    <input id='btn-reg' type="button" class="btn btn-primary" value="注册">
+                    <input type="reset" class="btn btn-default" value="重置">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% if(user){ %>
+<div class="modal fade">
+<% }else{ %>
+<div class="modal show" id="login">
+<% } %>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>登录</span>
+                <a class="close" style="border:1px gray solid;border-radius:5px;" href="/topic"> 返回</a>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="form-login" action="/login">
+                    <input id="username-login" name="username" type="text" class="form-control" placeholder="username" style="margin-bottom:20px">
+                    <input id="pwd-login" name="pwd" type="password" class="form-control" placeholder="password" style="margin-bottom: 20px">
+                    <input id="btn-login" type="button" class="btn btn-primary" value="登录">
+                    <input type="reset" class="btn btn-default" value="重置">
+                    <span id="tip" class="text-danger"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="padding: 0">
+    <div class="col-md-offset-2 col-md-8 col-xs-12" style="padding: 0">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                话题舍
+                <% if(!user){ %>
+                <a class="pull-right" style="color: #fff" data-toggle="modal" data-target="#login">发布话题+</a>
+                <% } %>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-tabs nav-justified" id="topic-nav">
+                    <li><a href="/topic?idx=0">最新</a></li>
+                    <li><a href="/topic?idx=1">最热</a></li>
+                    <% if(user){ %>
+                    <li><a href="/topic?idx=2">浮动</a></li>
+                    <li class="active"><a href="/topic/add">发布话题+</a></li>
+                    <% }else{ %>
+                    <li id="float" class="active"><a href="/topic?idx=2">浮动</a></li>
+                    <% } %>
+                </ul>
+                <div class="well">
+                    <form method="post" action="/topic/post">
+                        <div class="form-group">
+                            标题:
+                            <input name="title" type="text" class="form-control" required="required">
+                        </div>
+                        <div class="form-group">
+                            内容:
+                            <textarea name="content" class="form-control" rows="10" required="required"></textarea>
+                        </div>
+                        <div class="form-group">
+                            标签:
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input name="tag" type="text" class="form-control" required="required">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="发布">
+                        <input type="reset" class="btn btn-default" value="重置">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="/javascript/fc_mod_col.js"></script>
+</body>
+</html>
